@@ -1,19 +1,37 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import AppRouter from 'components/Router';
 import { authService } from 'firebaseApp';
 
 function App() {
-  // isSignedIn이 true이면 접속 상태 →  홈 페이지
-  // isSignedIn이 false이면 비접속 상태 → 인증 페이지
-  const [isSignedIn, setIsSignedIn] = useState(authService.currentUser);
+  // * true → 파이어베이스 초기화 완료
+  // * false → 파이어베이스 초기화 미완료
+  const [isInit, setIsInit] = useState(false);
 
-  // TODO: 제거 예정
-  console.log(authService.currentUser);
+  // * true →  홈 페이지
+  // * false → 인증 페이지
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
+  useEffect(() => {
+    authService.onAuthStateChanged((user) => {
+      if (user) {
+        // * 사용자 데이터가 존재할 경우
+        setIsSignedIn(user);
+      } else {
+        // * 사용자 데이터가 존재하지 않을 경우
+        setIsSignedIn(false);
+      }
+
+      // * 파이어베이스 초기화 완료
+      setIsInit(true);
+    });
+  }, []);
 
   return (
     <>
-      <AppRouter isSignedIn={isSignedIn} />
+      {/* 파이어베이스 초기화 여부를 검사한다. */}
+      {isInit ? <AppRouter isSignedIn={isSignedIn} /> : '로딩 중입니다...'}
+
       <footer>
         &copy; {new Date().getFullYear()}. DEVELOPER POLARIS. All rights
         reserved.

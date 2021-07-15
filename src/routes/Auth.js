@@ -10,6 +10,8 @@ const Auth = () => {
   // * 기존 계정 -> false
   const [isNewAccount, setIsNewAccount] = useState(true);
 
+  const [error, setError] = useState('');
+
   const onChange = (event) => {
     const {
       target: { name, value },
@@ -46,9 +48,11 @@ const Auth = () => {
 
       console.log(accountData);
     } catch (err) {
-      console.error(err);
+      setError(err.message);
     }
   };
+
+  const toggleAccount = () => setIsNewAccount((prev) => !prev);
 
   return (
     <div>
@@ -75,7 +79,13 @@ const Auth = () => {
           type="submit"
           value={isNewAccount ? '계정 생성' : '서비스 접속'}
         />
+
+        {error}
       </form>
+
+      <span onClick={toggleAccount}>
+        {isNewAccount ? '서비스 접속' : '계정 생성'}
+      </span>
 
       <div>
         <button>Google 계정으로 접속</button>
