@@ -1,8 +1,14 @@
 import { useState } from 'react';
 
+import { authService } from 'firebaseApp';
+
 const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  // * 신규 계정 → true
+  // * 기존 계정 -> false
+  const [isNewAccount, setIsNewAccount] = useState(true);
 
   const onChange = (event) => {
     const {
@@ -16,8 +22,32 @@ const Auth = () => {
     }
   };
 
-  const onSubmit = (event) => {
+  // * 비동기 처리
+  const onSubmit = async (event) => {
+    // * 페이지 새로고침 방지 → React 상태 손실 방지
     event.preventDefault();
+
+    try {
+      let accountData = null; // * 계정 데이터
+
+      if (isNewAccount) {
+        // * 신규 계정일 경우 계정을 생성한다.
+        accountData = await authService.createUserWithEmailAndPassword(
+          email,
+          password
+        );
+      } else {
+        // * 기존 계정일 경우 서비스에 접속한다.
+        accountData = await authService.signInWithEmailAndPassword(
+          email,
+          password
+        );
+      }
+
+      console.log(accountData);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -31,6 +61,7 @@ const Auth = () => {
           required
           onChange={onChange}
         />
+
         <input
           name="password"
           type="password"
@@ -39,7 +70,11 @@ const Auth = () => {
           required
           onChange={onChange}
         />
-        <input type="submit" value="서비스 접속" />
+
+        <input
+          type="submit"
+          value={isNewAccount ? '계정 생성' : '서비스 접속'}
+        />
       </form>
 
       <div>
