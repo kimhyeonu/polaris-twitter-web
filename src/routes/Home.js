@@ -6,14 +6,15 @@ const Home = ({ currentUser }) => {
   const [tweet, setTweet] = useState('');
   const [tweets, setTweets] = useState([]);
 
-  const getTweets = async () => {
-    const tweets = await firestoreService.collection('tweets').get();
+  // const getTweets = async () => {
+  //   // * get()는 처음에 화면을 렌더링할 때만 실행된다.
+  //   const tweets = await firestoreService.collection('tweets').get();
 
-    tweets.forEach((document) => {
-      const tweetObj = { ...document.data(), id: document.id };
-      setTweets((prev) => [tweetObj, ...prev]);
-    });
-  };
+  //   tweets.forEach((document) => {
+  //     const tweetObj = { ...document.data(), id: document.id };
+  //     setTweets((prev) => [tweetObj, ...prev]);
+  //   });
+  // };
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -38,7 +39,16 @@ const Home = ({ currentUser }) => {
   };
 
   useEffect(() => {
-    getTweets();
+    // getTweets();
+
+    firestoreService.collection('tweets').onSnapshot((snapshot) => {
+      const newTweets = snapshot.docs.map((document) => ({
+        id: document.id,
+        ...document.data(),
+      }));
+
+      setTweets(newTweets);
+    });
   }, []);
 
   return (
