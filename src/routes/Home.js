@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { firestoreService } from 'firebaseApp';
 
-const Home = () => {
+const Home = ({ currentUser }) => {
   const [tweet, setTweet] = useState('');
   const [tweets, setTweets] = useState([]);
 
@@ -21,6 +21,7 @@ const Home = () => {
     await firestoreService.collection('tweets').add({
       text: tweet,
       createdAt: Date.now(),
+      creatorId: currentUser.uid,
     });
 
     setTweet('');

@@ -9,7 +9,7 @@ import Auth from 'routes/Auth';
 // 서브 라우트 목록
 import Profile from 'routes/Profile';
 
-const AppRouter = ({ isSignedIn }) => {
+const AppRouter = ({ isSignedIn, currentUser }) => {
   return (
     <Router>
       {/* 접속 중일 때만 네비게이션을 보여준다. */}
@@ -19,7 +19,7 @@ const AppRouter = ({ isSignedIn }) => {
         {isSignedIn ? (
           <>
             <Route exact path="/">
-              <Home />
+              <Home currentUser={currentUser} />
             </Route>
             <Route exact path="/profile">
               <Profile />
