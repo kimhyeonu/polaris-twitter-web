@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { authService } from 'firebaseApp';
+import { authService, firebaseInstance } from 'firebaseApp';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -54,6 +54,24 @@ const Auth = () => {
 
   const toggleAccount = () => setIsNewAccount((prev) => !prev);
 
+  // * 비동기 처리
+  const onSocialClick = async (event) => {
+    const {
+      target: { name },
+    } = event;
+    let provider;
+
+    if (name === 'google') {
+      provider = new firebaseInstance.auth.GoogleAuthProvider();
+    } else if (name === 'github') {
+      provider = new firebaseInstance.auth.GithubAuthProvider();
+    }
+
+    const data = await authService.signInWithPopup(provider);
+
+    console.log(data);
+  };
+
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -88,8 +106,12 @@ const Auth = () => {
       </span>
 
       <div>
-        <button>Google 계정으로 접속</button>
-        <button>GitHub 계정으로 접속</button>
+        <button onClick={onSocialClick} name="google">
+          Google 계정으로 접속
+        </button>
+        <button onClick={onSocialClick} name="github">
+          GitHub 계정으로 접속
+        </button>
       </div>
     </div>
   );
