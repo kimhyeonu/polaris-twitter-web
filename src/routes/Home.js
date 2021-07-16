@@ -9,9 +9,10 @@ const Home = () => {
   const getTweets = async () => {
     const tweets = await firestoreService.collection('tweets').get();
 
-    tweets.forEach((document) =>
-      setTweets((prev) => [document.data(), ...prev])
-    );
+    tweets.forEach((document) => {
+      const tweetObj = { ...document.data(), id: document.id };
+      setTweets((prev) => [tweetObj, ...prev]);
+    });
   };
 
   const onSubmit = async (event) => {
@@ -39,20 +40,28 @@ const Home = () => {
     getTweets();
   }, []);
 
-  console.log(tweets);
-
   return (
-    <form onSubmit={onSubmit}>
-      <input
-        value={tweet}
-        onChange={onChange}
-        type="text"
-        placeholder="100자 이내로 입력해 주세요."
-        maxLength={100}
-      />
+    <>
+      <form onSubmit={onSubmit}>
+        <input
+          value={tweet}
+          onChange={onChange}
+          type="text"
+          placeholder="100자 이내로 입력해 주세요."
+          maxLength={100}
+        />
 
-      <input type="submit" value="등록" />
-    </form>
+        <input type="submit" value="등록" />
+      </form>
+
+      <div>
+        {tweets.map((tweet) => (
+          <div key={tweet.id}>
+            <h4>{tweet.text}</h4>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 
