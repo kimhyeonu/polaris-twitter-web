@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { firestoreService } from 'firebaseApp';
+import Tweet from 'components/Tweet';
 
 const Home = ({ currentUser }) => {
   const [tweet, setTweet] = useState('');
@@ -67,9 +68,11 @@ const Home = ({ currentUser }) => {
 
       <div>
         {tweets.map((tweet) => (
-          <div key={tweet.id}>
-            <h4>{tweet.text}</h4>
-          </div>
+          <Tweet
+            key={tweet.id}
+            tweet={tweet}
+            isOwner={tweet.creatorId === currentUser.uid}
+          />
         ))}
       </div>
     </>
