@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { v4 as uuidV4 } from 'uuid';
 
-import { firestoreService } from 'firebaseApp';
+import { firestoreService, storageService } from 'firebaseApp';
 import Tweet from 'components/Tweet';
 
 const Home = ({ currentUser }) => {
@@ -22,13 +23,28 @@ const Home = ({ currentUser }) => {
   const onSubmit = async (event) => {
     event.preventDefault();
 
+    let attachmentUrl = '';
+
+    // * 첨부 파일(사진)이 존재할 경우에만 스토리지 레퍼런스를 생성한다.
+    if (attachment !== '') {
+      const attachmentRef = storageService
+        .ref()
+        .child(`${currentUser.uid}/${uuidV4()}`);
+
+      const response = await attachmentRef.putString(attachment, 'data_url');
+
+      attachmentUrl = await response.ref.getDownloadURL();
+    }
+
     await firestoreService.collection('tweets').add({
       text: tweet,
       createdAt: Date.now(),
       creatorId: currentUser.uid,
+      attachmentUrl,
     });
 
     setTweet('');
+    setAttachment('');
   };
 
   const onChange = (event) => {

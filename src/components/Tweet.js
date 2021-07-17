@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { firestoreService } from 'firebaseApp';
+import { firestoreService, storageService } from 'firebaseApp';
 
 const Tweet = ({ tweet, isOwner }) => {
   const [isEditable, setIsEditable] = useState(false);
@@ -11,6 +11,10 @@ const Tweet = ({ tweet, isOwner }) => {
 
     if (isDeleted) {
       await firestoreService.doc(`tweets/${tweet.id}`).delete();
+
+      if (tweet.attachmentUrl !== '') {
+        await storageService.refFromURL(tweet.attachmentUrl).delete();
+      }
     }
   };
 
@@ -48,6 +52,10 @@ const Tweet = ({ tweet, isOwner }) => {
       ) : (
         <>
           <h4>{tweet.text}</h4>
+
+          {tweet.attachmentUrl && (
+            <img src={tweet.attachmentUrl} alt="" width="50px" height="50px" />
+          )}
 
           {isOwner && (
             <>
