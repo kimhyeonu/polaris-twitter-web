@@ -40,10 +40,10 @@ function App() {
         '로딩 중입니다...'
       )}
 
-      <footer>
+      {/* <footer>
         &copy; {new Date().getFullYear()}. DEVELOPER POLARIS. All rights
         reserved.
-      </footer>
+      </footer> */}
     </>
   );
 }

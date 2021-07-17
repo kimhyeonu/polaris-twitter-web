@@ -7,6 +7,8 @@ const Home = ({ currentUser }) => {
   const [tweet, setTweet] = useState('');
   const [tweets, setTweets] = useState([]);
 
+  const [attachment, setAttachment] = useState('');
+
   // const getTweets = async () => {
   //   // * get()는 처음에 화면을 렌더링할 때만 실행된다.
   //   const tweets = await firestoreService.collection('tweets').get();
@@ -39,6 +41,25 @@ const Home = ({ currentUser }) => {
     setTweet(value);
   };
 
+  const onFileChange = (event) => {
+    const {
+      target: { files },
+    } = event;
+    const file = files[0];
+
+    const reader = new FileReader();
+    reader.onloadend = (finishedEvent) => {
+      const {
+        currentTarget: { result },
+      } = finishedEvent;
+      setAttachment(result);
+    };
+
+    reader.readAsDataURL(file);
+  };
+
+  const onClearAttachment = () => setAttachment('');
+
   useEffect(() => {
     // getTweets();
 
@@ -63,7 +84,16 @@ const Home = ({ currentUser }) => {
           maxLength={100}
         />
 
+        <input type="file" accept="image/*" onChange={onFileChange} />
+
         <input type="submit" value="등록" />
+
+        {attachment && (
+          <div>
+            <img src={attachment} alt="" width="50px" height="50px" />
+            <button onClick={onClearAttachment}>취소</button>
+          </div>
+        )}
       </form>
 
       <div>
