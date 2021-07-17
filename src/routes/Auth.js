@@ -30,23 +30,13 @@ const Auth = () => {
     event.preventDefault();
 
     try {
-      let accountData = null; // * 계정 데이터
-
       if (isNewAccount) {
         // * 신규 계정일 경우 계정을 생성한다.
-        accountData = await authService.createUserWithEmailAndPassword(
-          email,
-          password
-        );
+        await authService.createUserWithEmailAndPassword(email, password);
       } else {
         // * 기존 계정일 경우 서비스에 접속한다.
-        accountData = await authService.signInWithEmailAndPassword(
-          email,
-          password
-        );
+        await authService.signInWithEmailAndPassword(email, password);
       }
-
-      console.log(accountData);
     } catch (err) {
       setError(err.message);
     }
@@ -67,9 +57,7 @@ const Auth = () => {
       provider = new firebaseInstance.auth.GithubAuthProvider();
     }
 
-    const data = await authService.signInWithPopup(provider);
-
-    console.log(data);
+    await authService.signInWithPopup(provider);
   };
 
   return (
