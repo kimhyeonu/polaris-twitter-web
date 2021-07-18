@@ -8,10 +8,6 @@ function App() {
   // * false → 파이어베이스 초기화 미완료
   const [isInit, setIsInit] = useState(false);
 
-  // * true →  홈 페이지
-  // * false → 인증 페이지
-  const [isSignedIn, setIsSignedIn] = useState(false);
-
   // * 서비스에 접속한 사용자(계정)
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -36,7 +32,7 @@ function App() {
         });
       } else {
         // * 사용자 데이터가 존재하지 않을 경우
-        setIsSignedIn(false);
+        setCurrentUser(false);
       }
 
       // * 파이어베이스 초기화 완료

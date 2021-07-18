@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router';
 
-import { authService, firestoreService } from 'firebaseApp';
+import { authService } from 'firebaseApp';
 
 const Profile = ({ currentUser, refreshUser }) => {
   const history = useHistory();
