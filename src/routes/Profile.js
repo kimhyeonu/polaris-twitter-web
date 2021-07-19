@@ -48,19 +48,32 @@ const Profile = ({ currentUser, refreshUser }) => {
   // }, []);
 
   return (
-    <>
-      <form onSubmit={onSubmit}>
+    <div className="container">
+      <form onSubmit={onSubmit} className="profile-form">
         <input
           type="text"
           placeholder="표시 이름"
           onChange={onChange}
           value={newDisplayName}
+          autoFocus
+          className="form-input"
         />
-        <input type="submit" value="프로필 업데이트" />
+
+        <input
+          type="submit"
+          value="프로필 업데이트"
+          className="form-button"
+          style={{ marginTop: 10 }}
+        />
       </form>
 
-      <button onClick={onSignOutClick}>서비스 접속해제</button>
-    </>
+      <span
+        className="form-button cancel-button sign-out"
+        onClick={onSignOutClick}
+      >
+        접속해제
+      </span>
+    </div>
   );
 };
 

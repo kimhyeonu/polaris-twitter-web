@@ -1,4 +1,11 @@
 import { authService, firebaseInstance } from 'firebaseApp';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faTwitter,
+  faGoogle,
+  faGithub,
+} from '@fortawesome/free-brands-svg-icons';
+
 import AuthForm from 'components/AuthForm';
 
 const Auth = () => {
@@ -19,15 +26,22 @@ const Auth = () => {
   };
 
   return (
-    <div>
+    <div className="auth-container">
+      <FontAwesomeIcon
+        icon={faTwitter}
+        color={'#04AAFF'}
+        size="3x"
+        style={{ marginBottom: 30 }}
+      />
+
       <AuthForm />
 
-      <div>
-        <button onClick={onSocialClick} name="google">
-          Google 계정으로 접속
+      <div className="auth-buttons">
+        <button onClick={onSocialClick} name="google" className="auth-button">
+          <FontAwesomeIcon icon={faGoogle} /> Google
         </button>
-        <button onClick={onSocialClick} name="github">
-          GitHub 계정으로 접속
+        <button onClick={onSocialClick} name="github" className="auth-button">
+          <FontAwesomeIcon icon={faGithub} /> GitHub
         </button>
       </div>
     </div>

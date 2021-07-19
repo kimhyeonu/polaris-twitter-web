@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { firestoreService, storageService } from 'firebaseApp';
 
@@ -38,16 +40,25 @@ const Tweet = ({ tweet, isOwner }) => {
   };
 
   return (
-    <div>
+    <div className="tweet">
       {isEditable ? (
         <>
-          <form onSubmit={onSubmit}>
-            <input onChange={onChange} value={newTweetText} required />
+          <form onSubmit={onSubmit} className="container tweet-edit">
+            <input
+              onChange={onChange}
+              value={newTweetText}
+              required
+              placeholder="트윗을 수정하세요."
+              autoFocus
+              className="form-input"
+            />
 
-            <input type="submit" value="확인" />
+            <input type="submit" value="확인" className="form-button" />
           </form>
 
-          <button onClick={onEditClick}>취소</button>
+          <button onClick={onEditClick} className="form-button cancel-button">
+            취소
+          </button>
         </>
       ) : (
         <>
@@ -58,10 +69,15 @@ const Tweet = ({ tweet, isOwner }) => {
           )}
 
           {isOwner && (
-            <>
-              <button onClick={onDeleteClick}>삭제</button>
-              <button onClick={onEditClick}>편집</button>
-            </>
+            <div className="tweet__actions">
+              <span onClick={onDeleteClick}>
+                <FontAwesomeIcon icon={faTrash} />
+              </span>
+
+              <span onClick={onEditClick}>
+                <FontAwesomeIcon icon={faPencilAlt} />
+              </span>
+            </div>
           )}
         </>
       )}

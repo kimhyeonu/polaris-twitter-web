@@ -19,10 +19,10 @@ const Home = ({ currentUser }) => {
   }, []);
 
   return (
-    <>
+    <div className="container">
       <TweetFactory currentUser={currentUser} />
 
-      <div>
+      <div style={{ marginTop: 90 }}>
         {tweets.map((tweet) => (
           <Tweet
             key={tweet.id}
@@ -31,7 +31,7 @@ const Home = ({ currentUser }) => {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
