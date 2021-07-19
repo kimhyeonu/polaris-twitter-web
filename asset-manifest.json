@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.js": "/polaris-twitter-web/static/js/main.128eee3b.chunk.js",
+    "main.js.map": "/polaris-twitter-web/static/js/main.128eee3b.chunk.js.map",
+    "runtime-main.js": "/polaris-twitter-web/static/js/runtime-main.27249a1f.js",
+    "runtime-main.js.map": "/polaris-twitter-web/static/js/runtime-main.27249a1f.js.map",
+    "static/js/2.a3a2a2ff.chunk.js": "/polaris-twitter-web/static/js/2.a3a2a2ff.chunk.js",
+    "static/js/2.a3a2a2ff.chunk.js.map": "/polaris-twitter-web/static/js/2.a3a2a2ff.chunk.js.map",
+    "index.html": "/polaris-twitter-web/index.html",
+    "static/js/2.a3a2a2ff.chunk.js.LICENSE.txt": "/polaris-twitter-web/static/js/2.a3a2a2ff.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.27249a1f.js",
+    "static/js/2.a3a2a2ff.chunk.js",
+    "static/js/main.128eee3b.chunk.js"
+  ]
+}
