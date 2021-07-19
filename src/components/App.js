@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 
 import AppRouter from 'components/Router';
 import { authService } from 'firebaseApp';
@@ -41,7 +41,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <Fragment>
       {/* 파이어베이스 초기화 여부를 검사한다. */}
       {isInit ? (
         <AppRouter
@@ -57,7 +57,7 @@ function App() {
         &copy; {new Date().getFullYear()}. DEVELOPER POLARIS. All rights
         reserved.
       </footer> */}
-    </>
+    </Fragment>
   );
 }
 

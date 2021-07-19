@@ -8,14 +8,17 @@ const Home = ({ currentUser }) => {
   const [tweets, setTweets] = useState([]);
 
   useEffect(() => {
-    firestoreService.collection('tweets').onSnapshot((snapshot) => {
-      const newTweets = snapshot.docs.map((document) => ({
-        id: document.id,
-        ...document.data(),
-      }));
+    firestoreService
+      .collection('tweets')
+      .orderBy('createdAt', 'desc')
+      .onSnapshot((snapshot) => {
+        const newTweets = snapshot.docs.map((document) => ({
+          id: document.id,
+          ...document.data(),
+        }));
 
-      setTweets(newTweets);
-    });
+        setTweets(newTweets);
+      });
   }, []);
 
   return (

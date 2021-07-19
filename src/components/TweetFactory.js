@@ -64,7 +64,9 @@ const TweetFactory = ({ currentUser }) => {
       setAttachment(result);
     };
 
-    reader.readAsDataURL(file);
+    if (Boolean(file)) {
+      reader.readAsDataURL(file);
+    }
   };
 
   const onClearAttachment = () => setAttachment('');
@@ -88,7 +90,7 @@ const TweetFactory = ({ currentUser }) => {
         />
       </div>
 
-      <label for="attach-file" className="tweet-factory-form__label">
+      <label htmlFor="attach-file" className="tweet-factory-form__label">
         <span>사진 첨부</span>
         <FontAwesomeIcon icon={faPlus} />
       </label>

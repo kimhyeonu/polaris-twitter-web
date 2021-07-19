@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { authService } from 'firebaseApp';
 
 const AuthForm = () => {
@@ -44,7 +44,7 @@ const AuthForm = () => {
   const toggleAccount = () => setIsNewAccount((prev) => !prev);
 
   return (
-    <>
+    <Fragment>
       <form onSubmit={onSubmit} className="container">
         <input
           name="email"
@@ -78,7 +78,7 @@ const AuthForm = () => {
       <span onClick={toggleAccount} className="auth-switch">
         {isNewAccount ? '서비스 접속' : '계정 생성'}
       </span>
-    </>
+    </Fragment>
   );
 };
 

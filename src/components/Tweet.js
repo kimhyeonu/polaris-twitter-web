@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
@@ -42,7 +42,7 @@ const Tweet = ({ tweet, isOwner }) => {
   return (
     <div className="tweet">
       {isEditable ? (
-        <>
+        <Fragment>
           <form onSubmit={onSubmit} className="container tweet-edit">
             <input
               onChange={onChange}
@@ -59,9 +59,9 @@ const Tweet = ({ tweet, isOwner }) => {
           <button onClick={onEditClick} className="form-button cancel-button">
             취소
           </button>
-        </>
+        </Fragment>
       ) : (
-        <>
+        <Fragment>
           <h4>{tweet.text}</h4>
 
           {tweet.attachmentUrl && (
@@ -79,7 +79,7 @@ const Tweet = ({ tweet, isOwner }) => {
               </span>
             </div>
           )}
-        </>
+        </Fragment>
       )}
     </div>
   );
